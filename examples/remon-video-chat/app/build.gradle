@@ -14,8 +14,8 @@ android {
         applicationId "com.remotemonster.remonrtc"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 10000011
-        versionName "1.0.01"
+        versionCode 10001001
+        versionName "1.1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -50,9 +50,6 @@ dependencies {
 
     /* Remote monster WebRTC library */
     compile(group: 'com.remon', name: 'remondroid', version: '0.2.69')
-
-    /* picasso, Image loader library */
-    compile 'com.squareup.picasso:picasso:2.5.2'
 
     /* permission*/
     compile 'io.vrinda.kotlinpermissions:kotlinpermissions:1.1'

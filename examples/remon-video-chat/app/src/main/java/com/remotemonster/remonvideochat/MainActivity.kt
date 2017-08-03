@@ -271,35 +271,36 @@ class MainActivity : PermissionsActivity(), NavigationView.OnNavigationItemSelec
             }
 
             override fun onStateChange(state: RemonState?) {
-                print("Remon STATE"+state.toString())
-                super.onStateChange(state)
-                when (state) {
-                    RemonState.INIT -> {
-                        mRemon.showLocalVideo()
-                        mRemon.searchChannels("")
-                        runOnUiThread {
-                            localVideoLayout.visibility = View.VISIBLE
+                if (this@MainActivity.isRunning) {
+                    super.onStateChange(state)
+                    when (state) {
+                        RemonState.INIT -> {
+                            mRemon.showLocalVideo()
+                            mRemon.searchChannels("")
+                            runOnUiThread {
+                                localVideoLayout.visibility = View.VISIBLE
+                            }
                         }
-                    }
-                    RemonState.WAIT -> print("WAIT")
-                    RemonState.CONNECT->{
-                        runOnUiThread {
-                            isConnected = true
-                            remoteVideoLayout.visibility = View.VISIBLE
-                            remoteVideoView.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FILL)
-                            remoteVideoView.requestLayout()
+                        RemonState.WAIT -> print("WAIT")
+                        RemonState.CONNECT->{
+                            runOnUiThread {
+                                isConnected = true
+                                remoteVideoLayout.visibility = View.VISIBLE
+                                remoteVideoView.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FILL)
+                                remoteVideoView.requestLayout()
 
-                            localVideoLayout.setPosition(70, 70, 28, 29)
-                            localVideoLayout.requestLayout()
+                                localVideoLayout.setPosition(70, 70, 28, 29)
+                                localVideoLayout.requestLayout()
 
-                            lvChatList.visibility = View.VISIBLE
-                            llBtnBox.visibility = View.VISIBLE
+                                lvChatList.visibility = View.VISIBLE
+                                llBtnBox.visibility = View.VISIBLE
 
-                            InitChatList()
+                                InitChatList()
+                            }
                         }
+                        RemonState.FAIL -> remonCloseProcess()
+                        RemonState.EXIT -> remonCloseProcess()
                     }
-                    RemonState.FAIL -> remonCloseProcess()
-                    RemonState.EXIT -> remonCloseProcess()
                 }
             }
         });
